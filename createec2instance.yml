@@ -2,7 +2,7 @@
 - hosts: localhost
   vars:
     - awsregion: us-east-1
-    - instanceids: i-079d236e977705d1e
+    - instanceids: i-0f237e90991b820d0
   tasks:
     - name: Create an Ec2 instance
       ec2: 
@@ -12,9 +12,9 @@
         wait: yes
         # group: webserver
         count: 2
-        vpc_subnet_id: subnet-03c9ee3fac89651ef
+        vpc_subnet_id: subnet-0a49dd3366ceaaf26
         assign_public_ip: yes
         region: "{{ awsregion }}"
         ## register: ec2_output
-        aws_access_key: AKIATVY4UMICWFCKOXOC
-        aws_secret_key: 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
+        aws_access_key: AKIATVY4UMICTXOZJGAS
+        aws_secret_key: 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
