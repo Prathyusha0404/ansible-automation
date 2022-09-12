@@ -16,8 +16,8 @@
          count: 2
          vpc_subnet_id: subnet-0a49dd3366ceaaf26
          assign_public_ip: yes
-         aws_access_key: AKIATVY4UMICTXOZJGAS
-         aws_secret_key: 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
+         aws_access_key: *
+         aws_secret_key: *
          #instance_initiated_shutdown_behavior: terminate
       register: ec2
 
