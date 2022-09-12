@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Create snapshot
+      ec2_snapshot:
+         description: snapshot
+         instance_id: i-0eb147494412ab4b3
+         aws_access_key: *
+         aws_secret_key: *
+         region: us-east-1
+         wait: yes
+         device_name: /dev/xvda
+         debug_botocore_endpoint_logs: no
+         last_snapshot_min_age: 0
+
+
+
+
