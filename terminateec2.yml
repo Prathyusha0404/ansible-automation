@@ -1,20 +1,20 @@
 ---
 - hosts: localhost
   vars:
-    - instanceids: i-0eb147494412ab4b3,i-041038b71c0bb3b52
+    - instanceids: *
   tasks:
     - name: terminate ec2 instances
       ec2:
-         key_name: pathu0404
+         key_name: *
          state: 'absent'
          instance_id: "{{ instanceids }}"
-         instance_type: t2.micro
-         region: us-east-1
-         image: ami-05fa00d4c63e32376
+         instance_type: *
+         region: *
+         image: *
          wait: yes
-         group_id: sg-0710d68360d0cfdd4
+         group_id: *
          count: 2
-         vpc_subnet_id: subnet-0a49dd3366ceaaf26
+         vpc_subnet_id: *
          assign_public_ip: yes
          aws_access_key: *
          aws_secret_key: *
