@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  vars:
+    - instanceids: i-0eb147494412ab4b3,i-041038b71c0bb3b52
+  tasks:
+    - name: terminate ec2 instances
+      ec2:
+         key_name: pathu0404
+         state: 'absent'
+         instance_id: "{{ instanceids }}"
+         instance_type: t2.micro
+         region: us-east-1
+         image: ami-05fa00d4c63e32376
+         wait: yes
+         group_id: sg-0710d68360d0cfdd4
+         count: 2
+         vpc_subnet_id: subnet-0a49dd3366ceaaf26
+         assign_public_ip: yes
+         aws_access_key: AKIATVY4UMICTXOZJGAS
+         aws_secret_key: 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
+         #instance_initiated_shutdown_behavior: terminate
+      register: ec2
+
