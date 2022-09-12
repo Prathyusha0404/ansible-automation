@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  tasks:
+  - name: create ami for ec2 user
+    ec2_ami:
+      region: us-east-1
+      instance_id: i-0eb147494412ab4b3
+      wait: yes
+      aws_access_key: *
+      aws_secret_key: *
+      name: ami
+      tags:
+         Name: ansible ami
+         Service: TestService
+    register: image      
