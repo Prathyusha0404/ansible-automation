@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  vars:
+    - instanceids: *
+  tasks:
+    - name: terminate ec2 instances
+      ec2:
+         key_name: *
+         state: 'absent'
+         instance_id: "{{ instanceids }}"
+         instance_type: *
+         region: *
+         image: *
+         wait: yes
+         group_id: *
+         count: 2
+         vpc_subnet_id: *
+         assign_public_ip: yes
+         aws_access_key: *
+         aws_secret_key: *
+         #instance_initiated_shutdown_behavior: terminate
+      register: ec2
+

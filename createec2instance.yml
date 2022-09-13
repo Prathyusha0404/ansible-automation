@@ -1,20 +1,20 @@
 ---
 - hosts: localhost
   vars:
-    - awsregion: us-east-1
-    - instanceids: i-0f237e90991b820d0
+    - awsregion: *
+    - instanceids: *
   tasks:
     - name: Create an Ec2 instance
       ec2: 
-        key_name: pathu0404
-        instance_type: t2.micro
-        image: ami-05fa00d4c63e32376
+        key_name: *
+        instance_type: *
+        image: *
         wait: yes
         # group: webserver
         count: 2
-        vpc_subnet_id: subnet-0a49dd3366ceaaf26
+        vpc_subnet_id: subnet-*
         assign_public_ip: yes
         region: "{{ awsregion }}"
         ## register: ec2_output
-        aws_access_key: AKIATVY4UMICTXOZJGAS
-        aws_secret_key: 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
+        aws_access_key: *
+        aws_secret_key: *
