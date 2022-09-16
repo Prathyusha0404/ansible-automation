@@ -1,7 +1,8 @@
 ---
 - hosts: localhost
+  connection: local
   vars:
-    - ansible_python_interpreter: python2
+    #- ansible_python_interpreter: python2
   tasks:
     - name: Create an Ec2 instance
       ec2: 
@@ -10,7 +11,7 @@
         image: ami-05fa00d4c63e32376
         wait: yes
         # group: webserver
-        count: 2
+        count: 1
         vpc_subnet_id: subnet-03c9ee3fac89651ef
         assign_public_ip: yes
         region: us-east-1
