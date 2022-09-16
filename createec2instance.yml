@@ -5,7 +5,8 @@
     #- ansible_python_interpreter: python2
   tasks:
     - name: boto
-      shell: pip install boto -y
+      pip:
+        name: boto
     - name: Create an Ec2 instance
       ec2: 
         key_name: pathu0404
