@@ -1,0 +1,66 @@
+---
+- name: Build baseline image
+  hosts: localhost
+  gather_facts: True
+  become: True
+  vars:
+    user: ansible
+    ssh_port: 22
+    timezone: America/New_York
+  tasks:
+    - name: Update system packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install common packages
+      apt:
+        name:
+          - python3-pip
+          - python3-venv
+          - git
+          - curl
+          - unzip
+          - wget
+        state: present
+
+    - name: Set timezone
+      timezone:
+        name: "{{ timezone }}"
+
+    - name: Create new user
+      user:
+        name: "{{ user }}"
+        password: "{{ 'password' | password_hash('sha512', 'mysecretsalt') }}"
+        create_home: yes
+
+    - name: Copy SSH public key
+      authorized_key:
+        user: "{{ user }}"
+        state: present
+        key: "{{ lookup('file', '/path/to/your/public/key') }}"
+
+    - name: Allow SSH access for new user
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?Port .*'
+        line: "Port {{ ssh_port }}"
+        state: present
+        validate: '/usr/sbin/sshd -t -f %s'
+
+    - name: Remove default SSH host keys
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /etc/ssh/ssh_host_rsa_key
+        - /etc/ssh/ssh_host_ecdsa_key
+        - /etc/ssh/ssh_host_ed25519_key
+
+    - name: Generate new SSH host keys
+      command: ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' && ssh-keygen -q -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N '' && ssh-keygen -q -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N ''
+
+    - name: Remove temporary password for new user
+      user:
+        name: "{{ user }}"
+        password: ""
