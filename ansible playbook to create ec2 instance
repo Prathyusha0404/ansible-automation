@@ -1,0 +1,43 @@
+---
+- name: Create EC2 instance
+  hosts: localhost
+  gather_facts: False
+  vars:
+    region: us-east-1
+    ami_id: ami-0c55b159cbfafe1f0 # Replace with your desired AMI ID
+    instance_type: t2.micro # Replace with your desired instance type
+    keypair_name: mykeypair # Replace with your desired keypair name
+    security_group_name: mysecuritygroup # Replace with your desired security group name
+    subnet_id: subnet-xxxxxxxx # Replace with your desired subnet ID
+    tag_name: myec2instance # Replace with your desired instance name tag
+  tasks:
+    - name: Create security group
+      ec2_group:
+        name: "{{ security_group_name }}"
+        description: "My security group"
+        region: "{{ region }}"
+        rules:
+          - proto: tcp
+            from_port: 22
+            to_port: 22
+            cidr_ip: 0.0.0.0/0
+        state: present
+      register: ec2_security_group
+
+    - name: Launch EC2 instance
+      ec2:
+        key_name: "{{ keypair_name }}"
+        group_id: "{{ ec2_security_group.group_id }}"
+        instance_type: "{{ instance_type }}"
+        image: "{{ ami_id }}"
+        wait: yes
+        region: "{{ region }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        assign_public_ip: yes
+        instance_tags:
+          Name: "{{ tag_name }}"
+      register: ec2_instance
+
+    - name: Print instance information
+      debug:
+        var: ec2_instance
