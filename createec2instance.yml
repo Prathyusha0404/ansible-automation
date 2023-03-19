@@ -9,7 +9,7 @@
         name: boto
     - name: Create an Ec2 instance
       ec2: 
-        key_name: pathu0404
+        key_name: ***
         instance_type: t2.micro
         image: ami-05fa00d4c63e32376
         wait: yes
