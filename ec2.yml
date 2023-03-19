@@ -5,12 +5,12 @@
    tasks:      
     - name: Create an EC2 Instance       
       ec2:      
-       key_name: aws   
+       key_name: ***   
        instance_type: t2.micro 
        region: us-east-1
        image: ami-005f9685cb30f234b 
-       aws_access_key: AKIAXC4IE7AEULIR2KXE    
-       aws_secret_key: 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
+       aws_access_key: ****    
+       aws_secret_key: ****
        wait: yes       
          # group: webserver  
        vpc_subnet_id: subnet-0355ba9f3f00f0358          
