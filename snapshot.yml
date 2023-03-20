@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Create snapshot for EBS volume
+      ec2_snapshot:
+         description: Create snapshot
+         instance_id: i-05b8df0b0b58944c1
+         aws_access_key: ****
+         aws_secret_key: ****
+         region: us-east-1
+         wait: yes
+         device_name: /dev/xvda
