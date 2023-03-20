@@ -1,0 +1,20 @@
+---
+ - hosts: localhost
+   tasks:
+     - name: Terminate EC2 Instance
+       ec2:
+        key_name: aws
+        instance_ids: ***
+        aws_access_key: ***
+        aws_secret_key: ***
+        region: us-east-1
+        state: 'absent'
+        instance_type: t2.micro
+        image: ami-005f9685cb30f234b
+        wait: yes
+        group_id: sg-008d7d58c529e3412
+        vpc_subnet_id: subnet-0355ba9f3f00f0358
+        assign_public_ip: yes
+       register: ec2
+
+
